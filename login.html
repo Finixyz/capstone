@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="signin.css">
+
+    <!-- Add Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+
+    <style>
+        /* Style for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+    </style>
+
+    <script>
+        // Initialize Firebase with your project config
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Function to open the modal
+        function openModal() {
+            document.getElementById('myModal').style.display = 'block';
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        // Function to sign up with email
+        function signUpWithEmail() {
+            const email = prompt("Enter your email:");
+            const password = prompt("Enter your password:");
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    console.log("Email sign-up successful:", userCredential.user);
+                    closeModal(); // Close the modal after successful signup
+                })
+                .catch((error) => {
+                    console.error("Email sign-up error:", error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="Header">
+        <div class="Header-background"></div>
+        <div class="Header-content">
+          <div class="Header-hero">
+            <h1>The best electronics you've <br/> ever seen</h1>
+            <p>You'll be blown away with all it does</p>
+            <button class="Button" onclick="openModal()">Sign up</button>
+          </div>
+          <div class="Header-visuals">
+            <div class="Iphone"></div>
+          </div>
+        </div>
+      </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span onclick="closeModal()" style="float: right; cursor: pointer;">&times;</span>
+            <h2>Sign Up</h2>
+            <button onclick="signUpWithEmail()">Sign up with Email</button>
+            <!-- You can add other signup options here -->
+        </div>
+    </div>
+
+    <!-- Initialize Firebase and check authentication status -->
+    <script>
+        checkAuth();
+    </script>
+</body>
+</html>

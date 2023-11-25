@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "source": "functions"
+  },
+  "hosting": {
+    "public": "Capstone project",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
